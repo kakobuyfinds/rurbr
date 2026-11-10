@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#e9efff">
+  <title>Parcel Up spreadsheet – produktlänkar, QC och frakt till Sverige</title>
+  <meta name="description" content="En svensk guide till Parcel Up spreadsheet. Jämför Taobao-länkar och storlekar, granska lagerbilder och räkna på frakt till Sverige före köp.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sv_SE">
+  <meta property="og:title" content="Parcel Up spreadsheet – produktlänkar, QC och frakt till Sverige">
+  <meta property="og:description" content="Spara rätt produktvariant, jämför mått och följ varje vara från annons till färdigt paket.">
+  <style>
+    :root{color-scheme:light;--ink:#19233d;--muted:#43516a;--paper:#f8faff;--blue:#e9efff;--lime:#e3f494;--line:#c8d1e6}
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font:1rem/1.58 system-ui,-apple-system,"Segoe UI",sans-serif}
+    a{color:inherit} a:focus-visible,summary:focus-visible,.table-wrap:focus-visible{outline:3px solid #304ccd;outline-offset:3px}
+    h1,h2,h3,p,figure{margin:0} p+p{margin-top:.7rem}
+    h1,h2,h3{line-height:1.14} h2{font-size:clamp(1.45rem,3vw,2.15rem)}
+    img{display:block;max-width:100%;height:auto}
+    .wrap{width:min(68rem,calc(100% - 2rem));margin-inline:auto}
+    .mast{display:flex;justify-content:space-between;align-items:center;gap:.65rem;flex-wrap:wrap;padding:1rem 0;border-bottom:1px solid var(--line)}
+    .brand{font-weight:850;text-underline-offset:.25em}
+    .tag{font-size:.79rem;font-weight:800;letter-spacing:.075em;text-transform:uppercase}
+    .muted,figcaption{color:var(--muted)}
+    .categories{padding:1rem 0 1.15rem}
+    .categories h2{font-size:.79rem}
+    .categories ul{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.42rem;list-style:none;margin:.55rem 0 0;padding:0}
+    .categories a{display:flex;align-items:center;min-height:2.65rem;padding:.36rem .58rem;background:#fff;border:1px solid var(--line);border-radius:.45rem;font-size:.86rem;font-weight:700;text-decoration:none}
+    .categories a:hover{background:var(--lime)}
+    .hero{display:grid;grid-template-columns:1.35fr 1fr;gap:1rem;background:var(--blue);border-radius:1.2rem;padding:clamp(1rem,4vw,2.6rem);align-items:center}
+    h1{max-width:15ch;font-size:clamp(2.1rem,5.5vw,4.6rem);letter-spacing:-.055em;margin:.46rem 0 .82rem}
+    .lede{max-width:57ch}
+    .cta{display:inline-block;margin-top:1rem;padding:.58rem .85rem;background:var(--lime);border:1px solid var(--ink);border-radius:.48rem;font-weight:800;text-decoration:none}
+    .cta:hover{background:#f0fac0}
+    .hero-photo img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:.75rem}
+    figcaption{font-size:.82rem;margin-top:.35rem}
+    .section{margin-block:2.4rem}
+    .section>h2,.feature>h2{margin-bottom:.65rem}
+    .steps,.gallery{display:grid;gap:.8rem;margin-top:.9rem}
+    .steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .steps article{background:#fff;border:1px solid var(--line);border-radius:.8rem;padding:1rem}
+    .steps h3{margin:.55rem 0 .5rem;font-size:1.08rem}
+    .step{display:inline-grid;place-items:center;min-width:2rem;height:2rem;background:var(--lime);border-radius:50%}
+    .feature{background:#fff;border-top:4px solid #344eb5;padding:clamp(1rem,3vw,1.65rem)}
+    .table-wrap{overflow-x:auto;margin-top:.85rem}
+    table{border-collapse:collapse;width:100%;font-size:.92rem}
+    caption{text-align:left;font-weight:800;margin-bottom:.35rem}
+    th,td{text-align:left;vertical-align:top;padding:.5rem .6rem;border-bottom:1px solid var(--line)}
+    thead{background:var(--blue)}
+    tbody th{width:26%}
+    .gallery{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .gallery img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:.7rem}
+    details{border-top:1px solid var(--line);padding:.65rem 0}
+    details:last-child{border-bottom:1px solid var(--line)}
+    details p{max-width:68ch;margin:.35rem 0 .3rem}
+    summary{cursor:pointer;font-weight:750}
+    footer{border-top:1px solid var(--line);padding:1.15rem 0 1.8rem;font-size:.91rem}
+    @media(max-width:46rem){.hero{grid-template-columns:1fr}.categories ul,.steps,.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.steps article:last-child{grid-column:1/-1}.hero-photo{max-width:31rem}}
+    @media(max-width:26rem){.steps{grid-template-columns:1fr}th,td{padding:.35rem .4rem}}
+  </style>
+  <!--
+    Researchunderlag: Googles resultatsida kunde inte verifieras. Följande tio
+    domäner användes som kompletterande underlag, utan verifierad Google-ordning.
+    parcelup.com (köp och betalning), parcelup.net (länkar och QC),
+    parcelupindex.com (annons, lager och paket), findsindex.com (produktkategorier),
+    litrepstar.com (produktkällor och frakt), linktr.ee/parcelup_spreadsheet (sökfraser),
+    hipobuyfind.com (nybörjarguide), kakobuyspreadsheetfinds.com (annons bakom produktbild),
+    chinagrails.com (storlek och köpflöde), blog.sugargoo.com (QC-bilder och mått).
+    Sekundära sökord: Taobao-produktlänkar, Parcel Up-guide, QC-bilder från lagret,
+    frakt från Kina till Sverige.
+    Långa sökfraser för redaktionell planering:
+    säljarens produktlänk, storlekstabell på Taobao, kontrollera lagerstatus,
+    färgkod på Taobao, pris för vald variant, originalannons bakom produktbilden,
+    inköpslista per produktvariant, produkt-ID och säljarnamn, datum för länkkontroll,
+    modellnamn och SKU, kvalitetskontroll på lagret, närbilder på sömmar,
+    innersulans längd för skor, bröstbredd och ärmlängd för jackor,
+    huvudomkrets för kepsar, väskans yttermått, axelremmens längd,
+    armbandets innermått, kompletterande lagerbilder, inhemsk frakt i Kina,
+    Parcel Ups serviceavgift, paketets faktiska vikt, transportörens volymvikt,
+    internationella fraktalternativ, importavgifter till Sverige, paketets spårningsnummer.
+  -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Article",
+        "headline":"Så bygger du en inköpslista som går att kontrollera",
+        "inLanguage":"sv",
+        "description":"En svensk metod för att spara produktlänkar, dokumentera valda varianter och kontrollera lagermått före frakt."
+      },
+      {
+        "@type":"FAQPage",
+        "inLanguage":"sv",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Vad är en Parcel Up spreadsheet?",
+            "acceptedAnswer":{"@type":"Answer","text":"Det är en inköpslista där du samlar produktlänkar, valda varianter och anteckningar om mått, lagerbilder och frakt. Du kan föra listan i valfritt kalkylprogram."}
+          },
+          {
+            "@type":"Question",
+            "name":"Hur vet jag vilken storlek jag ska välja på Taobao?",
+            "acceptedAnswer":{"@type":"Answer","text":"Mät ett plagg som redan passar och jämför samma mått i säljarens storlekstabell. För skor är fotlängd och säljarens mått i centimeter en bättre utgångspunkt än storleksbeteckningen ensam."}
+          },
+          {
+            "@type":"Question",
+            "name":"Vad kan jag kontrollera med QC-bilder från lagret?",
+            "acceptedAnswer":{"@type":"Answer","text":"Du kan jämföra färg, märkning och synliga fel med den valda varianten. För passform behöver du bilder som visar relevanta mått. Bilderna räcker inte för att fastställa äkthet."}
+          },
+          {
+            "@type":"Question",
+            "name":"När får jag veta vad frakten till Sverige kostar?",
+            "acceptedAnswer":{"@type":"Answer","text":"Enligt Parcel Ups orderbeskrivning lämnas avgiften för internationell frakt efter att varorna har kommit till lagret och paketet har vägts. Kontrollera aktuellt fraktalternativ och eventuella importavgifter för din försändelse."}
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+<link rel="canonical" href="https://kakobuyfinds.github.io/rurbr/">
+</head>
+<body>
+  <header class="wrap mast">
+    <a class="brand" href="https://www.cafans.com">www.cafans.com</a>
+    <span class="tag muted">Svensk inköpsguide</span>
+  </header>
+
+  <main class="wrap">
+    <nav class="categories" aria-labelledby="categories-title">
+      <h2 class="tag" id="categories-title">Handla efter kategori på Cafans</h2>
+      <ul>
+        <li><a href="https://cafans.com/category-911-Shoes.html">Skor</a></li>
+        <li><a href="https://cafans.com/category-912-Hoodies%2FSweaters.html">Huvtröjor och tröjor</a></li>
+        <li><a href="https://cafans.com/category-913-T-Shirts.html">T-shirts</a></li>
+        <li><a href="https://cafans.com/category-914-Jackets.html">Jackor</a></li>
+        <li><a href="https://cafans.com/category-915-Pants%2FShorts.html">Byxor och shorts</a></li>
+        <li><a href="https://cafans.com/category-916-Headwear.html">Huvudbonader</a></li>
+        <li><a href="https://cafans.com/category-917-Sets.html">Klädset</a></li>
+        <li><a href="https://cafans.com/category-918-underwear%2Funderpants.html">Underkläder</a></li>
+        <li><a href="https://cafans.com/category-919-Jersey.html">Matchtröjor</a></li>
+        <li><a href="https://cafans.com/category-920-Accessories.html">Accessoarer</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <p class="tag">Produktlänk · Lagermått · Frakt</p>
+        <h1 id="title">Parcel Up spreadsheet</h1>
+        <p class="lede">En Parcel Up spreadsheet är en inköpslista där du samlar Taobao-produktlänkar och skriver upp vilken storlek, färg och modell du har valt. Lägg till lagerbilder och paketmått när de finns, så kan du kontrollera varan och räkna på frakten innan paketet skickas.</p>
+        <a class="cta" href="https://www.cafans.com">Bläddra bland produkter på Cafans</a>
+      </div>
+      <figure class="hero-photo">
+        <img src="https://www.soleclassics.com/cdn/shop/products/CW2288-111-PHSLH000-2000.png?v=1650692815&amp;width=800"
+             srcset="https://www.soleclassics.com/cdn/shop/products/CW2288-111-PHSLH000-2000.png?v=1650692815&amp;width=480 480w, https://www.soleclassics.com/cdn/shop/products/CW2288-111-PHSLH000-2000.png?v=1650692815&amp;width=800 800w"
+             sizes="(max-width: 32rem) calc(100vw - 4rem), 480px" width="800" height="800" loading="eager" fetchpriority="high" alt="Vit Nike Air Force 1 ’07 med perforerad tå och vit sula, sedd från sidan">
+        <figcaption>Nike Air Force 1 ’07 · Referensbild för att jämföra tåparti och sula.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" aria-labelledby="topics">
+      <h2 id="topics">Parcel Up-guide från annons till paket</h2>
+      <div class="steps">
+        <article>
+          <span class="step tag" aria-hidden="true">01</span>
+          <h3>Hitta originalannonsen</h3>
+          <p>Spara säljarens produktlänk och kontrollera lagerstatus, färgkod och storlekstabell på Taobao. Om fyndet kommer från ett bildalbum, be om annonsen som hör till bilden. Kontrollera att priset i annonsen gäller just din variant.</p>
+        </article>
+        <article>
+          <span class="step tag" aria-hidden="true">02</span>
+          <h3>Granska QC-bilder från lagret</h3>
+          <p>QC står för kvalitetskontroll. Be om närbilder på sömmar, etiketter och stängningar. Jämför innersulans längd för skor, plaggets bröstbredd och ärmlängd för jackor samt huvudomkrets för kepsar. Anteckna hur varje mått togs.</p>
+        </article>
+        <article>
+          <span class="step tag" aria-hidden="true">03</span>
+          <h3>Räkna på frakt från Kina till Sverige</h3>
+          <p>Håll varupriset, den inhemska frakten i Kina, serviceavgiften och den internationella frakten i separata fält. Kontrollera paketets faktiska vikt, yttermått och eventuell volymvikt enligt transportörens regler. Lägg till eventuella importavgifter när du jämför totalkostnaden.</p>
+        </article>
+      </div>
+    </section>
+
+    <article class="section feature" aria-labelledby="worksheet">
+      <h2 id="worksheet">Så bygger du en inköpslista som går att kontrollera</h2>
+      <p>Skapa en rad per produktvariant. För en jacka kan du mäta en jacka du redan äger plant från armhåla till armhåla och sedan be om samma mått i lagerbilden. Om du jämför väskor, skriv upp väskans yttermått och axelremmens längd så att du kan kontrollera vad som får plats och hur den sitter.</p>
+      <div class="table-wrap" role="region" aria-label="Kolumner för inköpslistan" tabindex="0">
+        <table>
+          <caption>Förslag på kolumner i din inköpslista</caption>
+          <thead><tr><th scope="col">Kolumn</th><th scope="col">Vad du skriver upp</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Källa</th><td>Originalannons, säljarnamn, produkt-ID och datum för senaste länkkontroll.</td></tr>
+            <tr><th scope="row">Variant</th><td>Modellnamn, färg, storlek, antal och SKU om annonsen anger en.</td></tr>
+            <tr><th scope="row">Lagerkontroll</th><td>Mått i centimeter, fotovinkel, synliga avvikelser och om kompletterande bilder behövs.</td></tr>
+            <tr><th scope="row">Paket</th><td>Slutlig paketvikt, paketmått, fraktalternativ, kostnad och spårningsnummer när det finns.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <section class="section" aria-labelledby="images">
+      <h2 id="images">Fyra detaljer att be om på bild</h2>
+      <p class="muted">Märkesbilderna visar exempel på detaljer att granska. För varan du överväger behöver du bilder av just det exemplaret.</p>
+      <div class="gallery">
+        <figure>
+          <img src="https://assets.christiandior.com/is/image/diorprod/613M403A2026C585_E01-1?%24default_GH%24=&amp;crop=393%2C164%2C1208%2C1676&amp;extend=0%2C0%2C0%2C250&amp;hei=540&amp;scale=0.875&amp;wid=500" width="500" height="540" loading="lazy" decoding="async" alt="Blå Dior Oblique-jacka med hög krage och mönstrad framsida">
+          <figcaption><strong>Dior:</strong> Be om bilder av kragen och dragkedjan i stängt läge.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1751298339/838745_3HBC4_2600_001_100_0000_Light.jpg" width="640" height="640" loading="lazy" decoding="async" alt="Gucci-keps i beige GG-canvas med böjd skärm">
+          <figcaption><strong>Gucci:</strong> Jämför skärmens form och be om en bild på spännet baktill.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://assets.hermes.com/is/image/hermesproduct/700001FO8Z_front_wm_101?%24product_default_bg%24=&amp;wid=480" width="480" height="640" loading="lazy" decoding="async" alt="Orange Hermès Clic H-armband med H-format spänne">
+          <figcaption><strong>Hermès:</strong> Be om armbandets innermått och en bild på låset.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://kr.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-%EC%8A%A4%ED%94%BC%EB%94%94-%EB%B0%98%EB%91%98%EB%A6%AC%EC%97%90-25-speedy-bandouliere-25---M46977_PM2_Front%20view.png?hei=480&amp;wid=480" width="480" height="480" loading="lazy" decoding="async" alt="Brun Louis Vuitton Speedy Bandoulière 25 med monogram och dubbla handtag">
+          <figcaption><strong>Louis Vuitton:</strong> Be om närbilder på handtagsfästena och väskans hörn.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq">
+      <h2 id="faq">Vanliga frågor</h2>
+      <details open>
+        <summary>Vad är en Parcel Up spreadsheet?</summary>
+        <p>Det är en inköpslista där du samlar produktlänkar, valda varianter och anteckningar om mått, lagerbilder och frakt. Du kan föra listan i valfritt kalkylprogram.</p>
+      </details>
+      <details>
+        <summary>Hur vet jag vilken storlek jag ska välja på Taobao?</summary>
+        <p>Mät ett plagg som redan passar och jämför samma mått i säljarens storlekstabell. För skor är fotlängd och säljarens mått i centimeter en bättre utgångspunkt än storleksbeteckningen ensam.</p>
+      </details>
+      <details>
+        <summary>Vad kan jag kontrollera med QC-bilder från lagret?</summary>
+        <p>Du kan jämföra färg, märkning och synliga fel med den valda varianten. För passform behöver du bilder som visar relevanta mått. Bilderna räcker inte för att fastställa äkthet.</p>
+      </details>
+      <details>
+        <summary>När får jag veta vad frakten till Sverige kostar?</summary>
+        <p>Enligt Parcel Ups orderbeskrivning lämnas avgiften för internationell frakt efter att varorna har kommit till lagret och paketet har vägts. Kontrollera aktuellt fraktalternativ och eventuella importavgifter för din försändelse.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p class="muted">Fristående köpguide. Märkesbilderna används som visuella referenser.</p>
+    <p><a class="brand" href="https://www.cafans.com">www.cafans.com</a></p>
+  </footer>
+</body>
+</html>
